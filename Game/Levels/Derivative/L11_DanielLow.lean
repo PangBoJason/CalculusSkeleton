@@ -72,10 +72,10 @@ deriv (fun x : ℝ => (x-1)^4 / (x^2 + 2*x)^5) x
 TheoremDoc deriv.comp as "deriv.comp" in "Derivative"
 
 /-- Addition Rule: $(f + g)'(x) = f'(x) + g'(x))$ -/
-TheoremDoc DifferentiableAt.add as "DifferentiableAt.add" in "Derivative"
+TheoremDoc DifferentiableAt.add as "DifferentiableAt.add" in "Differentiable"
 
 /-- Product Rule: $(f * g)'(x) = f'(x) * g(x) + g'(x) * f(x))$ -/
-TheoremDoc DifferentiableAt.mul as "DifferentiableAt.mul" in "Derivative"
+TheoremDoc DifferentiableAt.mul as "DifferentiableAt.mul" in "Differentiable"
 
 /-- Product Rule: $(c * g)'(x) =  c * g'(x))$ -/
-TheoremDoc DifferentiableAt.const_mul as "DifferentiableAt.const_mul" in "Derivative"
+TheoremDoc DifferentiableAt.const_mul as "DifferentiableAt.const_mul" in "Differentiable"
