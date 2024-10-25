@@ -10,7 +10,7 @@ Level 11
 
 Title "Derivative of (x-1)^4/(x^2+2x)^5"
 
-#check DifferentiableAt ℝ (fun x : ℝ => x) 1
+
 -- The derivative of frac{(x-1)^4}{(x^2 +2x)^5}
 
 
