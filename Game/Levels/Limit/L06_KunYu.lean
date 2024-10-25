@@ -1,6 +1,6 @@
 import Game.Metadata
 import Mathlib
-import Game.Levels.Limit.Basic
+import Game.Lemmas.Limits.Basic
 
 World "Limit"
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr "Project-Id-Version: Game v4.7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Thu Oct 24 16:57:04 2024\n"
+"POT-Creation-Date: Fri Oct 25 16:49:11 2024\n"
 "Last-Translator: \n"
 "Language-Team: none\n"
 "Language: en\n"
@@ -132,6 +132,199 @@ msgstr ""
 msgid ""
 msgstr ""
 
+#: Game.Levels.Derivative.L04_ProductRule
+msgid "Product Rule"
+msgstr ""
+
+#: Game.Levels.Derivative.L04_ProductRule
+msgid "To apply the product rule, use `deriv_mul`."
+msgstr ""
+
+#: Game.Levels.Derivative.L04_ProductRule
+msgid "To differentiate the exponential function, use `Real.deriv_exp`."
+msgstr ""
+
+#: Game.Levels.Derivative.L04_ProductRule
+msgid "To show the exponential function is differentiable, use `Real.differentiableAt_exp`."
+msgstr ""
+
+#: Game.Levels.Derivative.L04_ProductRule
+msgid "Product rule: for differentiable functions $f$ and $g$, one has $(fg)'=f'g+fg'.$"
+msgstr ""
+
+#: Game.Levels.Derivative.L04_ProductRule
+msgid "Derivative of exponential function: $(e^x)'=e^x.$"
+msgstr ""
+
+#: Game.Levels.Derivative.L04_ProductRule
+msgid "The exponential function is differentiable."
+msgstr ""
+
+#: Game.Levels.Derivative.L05_EXpowerEX
+msgid "exp to the exp"
+msgstr ""
+
+#: Game.Levels.Derivative.L05_EXpowerEX
+msgid "The function $f(x) = xe^x$ is differentiable everywhere on $ℝ$"
+msgstr ""
+
+#: Game.Levels.Derivative.L05_EXpowerEX
+msgid "$(xe^x)'=(x + 1)e^x$"
+msgstr ""
+
+#: Game.Levels.Derivative.L05_EXpowerEX
+msgid "Chain Rule: $(f ∘ g)'(x)=f'(g(x))g'(x)$"
+msgstr ""
+
+#: Game.Levels.Derivative.L06_QuotientRule
+msgid "Quotient Rule"
+msgstr ""
+
+#: Game.Levels.Derivative.L06_QuotientRule
+msgid "To apply the quotient rule, use `deriv_div`"
+msgstr ""
+
+#: Game.Levels.Derivative.L06_QuotientRule
+msgid "To differentiate the sine function, use `Real.deriv_sin`"
+msgstr ""
+
+#: Game.Levels.Derivative.L06_QuotientRule
+msgid "To show differentiability of the sine function, use `Real.differentiableAt_sin`."
+msgstr ""
+
+#: Game.Levels.Derivative.L06_QuotientRule
+msgid "To show that $x ^ 2 + 1 ≠ 0,$ you can show $x ^ 2 + 1 ≥ 1$ instead."
+msgstr ""
+
+#: Game.Levels.Derivative.L06_QuotientRule
+msgid "Quotient rule: for differentiable functions $f$ and $g$ with $g(x)≠0,$ one has\n"
+"  $(f/g)'(x)=((f'g-fg')/g^2)(x).$"
+msgstr ""
+
+#: Game.Levels.Derivative.L06_QuotientRule
+msgid "Derivative of the sine function is the cosine function."
+msgstr ""
+
+#: Game.Levels.Derivative.L06_QuotientRule
+msgid "The sine function is differentiable."
+msgstr ""
+
+#: Game.Levels.Derivative.L07_FanXinyuan
+msgid "TBA"
+msgstr ""
+
+#: Game.Levels.Derivative.L08_LiJunyi
+msgid "TBA"
+msgstr ""
+
+#: Game.Levels.Derivative.L09_KunYu
+msgid "TBA"
+msgstr ""
+
+#: Game.Levels.Derivative.L10_PangBo
+msgid "TBA"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Derivative of (x-1)^4/(x^2+2x)^5"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "We want to use function composition so first we define several functions, one each for (u^4), (x-1), (u^5), (x^2+2x)"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Prove some lemmas to show that (x-1)^4 is a composition of two functions, and do the same for (x^2 + 2*x)^5, using rfl to prove"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "We also prove differentiability of (x^2 + 2*x) which will be used later"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "First use DifferentiableAt.add since it's 2 functions added together, then differentiableAt_pow for the first half"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Use DifferentiableAt.mul for 2*x part"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Since we are dealing with a quotient, use rw the statement with deriv_div"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Use rw to replace (x-1)^4 and (x^2 + 2*x)^5 with the composition proven earlier"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Now apply deriv.comp, which gives the derivative of a composite function"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "rw with deriv_pow twice to compute the derivatives of u^4 and u^5"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Now to rw deriv(x-1), use deriv_sub_const for functions with a constant subtracted away"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "For deriv(x^2 + 2*x), use deriv_add, deriv_const_mul, deriv_id''"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "use simp to reduce to the final answer"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Now to prove the differentiability conditions"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Use DifferentiableAt.const_mul for functions multiplied with a constant"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Remember this is just the function u^5 but evaluated at a different value instead of just x"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Use the lemma we proved for differentiability of (x^2 + 2*x)"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Same as before, this is just proving differentiability of function u^4 evaluated at some different point"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "For this, we need to use DifferentiableAt.comp, which requires us to rewrite into a function composition again"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Other than that, just have to prove that both functions in the composition are differentiable"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Finally, use our assumption that we do not divide by zero"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Chain Rule: $(f ∘ g)'(x)=f'(g(x))g'(x)$"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Addition Rule: $(f + g)'(x) = f'(x) + g'(x))$"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Product Rule: $(f * g)'(x) = f'(x) * g(x) + g'(x) * f(x))$"
+msgstr ""
+
+#: Game.Levels.Derivative.L11_DanielLow
+msgid "Product Rule: $(c * g)'(x) =  c * g'(x))$"
+msgstr ""
+
 #: Game.Levels.Derivative
 msgid "Derivative"
 msgstr ""
@@ -233,13 +426,13 @@ msgid "Calculus Game"
 msgstr ""
 
 #: Game
-msgid "This text appears on the starting page where one selects the world/level to play.\n"
+msgid "This text appears on the starting page where one selects the world/level to play.\n"
 "You can use markdown."
 msgstr ""
 
 #: Game
-msgid "## Calculus Game\n"
-"\n"
+msgid "## Calculus Game\n"
+"\n"
 "This game is intended for a fun introduction to Lean4 and Calculus World."
 msgstr ""
 
