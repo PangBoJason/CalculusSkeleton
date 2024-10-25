@@ -18,12 +18,15 @@ Title "Derivative of (x-1)^4/(x^2+2x)^5"
 Statement (x : ℝ) (hx1 : (x^2 + 2*x)^5 ≠ 0) :
 deriv (fun x : ℝ => (x-1)^4 / (x^2 + 2*x)^5) x
 = (4*(x-1)^ 3 * (x^2 + 2*x)^5 - (x - 1)^4 * (5*(x^2 + 2*x)^4 * (2*x + 2))) / ((x^2 + 2*x)^5) ^ 2 := by
-  Hint "We want to use function composition so first we define several functions, one each for (u^4), (x-1), (u^5), (x^2+2x)"
+  Hint "##Introduction
+  $\\frac\{(x-1)^4}\{(x^2+2x)^5}$We want to use function composition so first we define several functions, one each for (u^4), (x-1), (u^5), (x^2+2x)"
   set f₁ := (fun u : ℝ  => u^4); set g₁ := (fun x : ℝ  => x - 1)
   set f₂ := (fun u : ℝ  => u^5); set g₂ := (fun x : ℝ  => x^2 + 2*x)
   Hint "Prove some lemmas to show that (x-1)^4 is a composition of two functions, and do the same for (x^2 + 2*x)^5, using rfl to prove"
-  have top : (fun x => (x-1)^4) = f₁ ∘ g₁ := by rfl
-  have bottom : (fun x => (x^2 + 2*x)^5) = f₂ ∘ g₂ := by rfl
+  have top : (fun x => (x-1)^4) = f₁ ∘ g₁
+  rfl
+  have bottom : (fun x => (x^2 + 2*x)^5) = f₂ ∘ g₂
+  rfl
   Hint "We also prove differentiability of (x^2 + 2*x) which will be used later"
   have diff_g₂ : DifferentiableAt ℝ g₂ x := by
     Hint "First use DifferentiableAt.add since it's 2 functions added together, then differentiableAt_pow for the first half"
