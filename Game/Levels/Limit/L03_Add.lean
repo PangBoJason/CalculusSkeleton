@@ -4,11 +4,12 @@ import Game.Lemmas.Limits.Lemmas
 import Game.Lemmas.Limits.LimitLaws
 import Game.Lemmas.Inequalities
 
-open Real Topology
+open Real Topology Filter
 
 World "Limit"
 
 Level 3
+namespace CGame
 
 Introduction "What you proved in the previous level have been summarized into lemmas, try to use these lemmas to tackle this problem."
 
@@ -19,6 +20,7 @@ Statement : lim x → 0, (sin x + 2 * x) = 0 := by
   · exact HasLimAt_sin_zero
   · exact HasLimAt_two_mul_zero
 
+end CGame
 
 /-- TODO -/
 TheoremDoc lim_add as "lim_add" in "Limit"

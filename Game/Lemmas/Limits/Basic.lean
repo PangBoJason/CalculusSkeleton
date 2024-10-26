@@ -22,21 +22,21 @@ irreducible_def flim (f : ℝ → ℝ) (l₁ : Filter ℝ) : ℝ :=
 
 #check ({(0:ℝ)}ᶜ : Set ℝ )
 
-notation:max "lim " x:40 " → ∞, " r:70 "= ∞" =>
+scoped[Topology] notation:max "lim " x:40 " → ∞, " r:70 "= ∞" =>
   Tendsto (fun x => r) atTop atTop
-notation:max "lim " x:40 " → " c:10 ", " r:70 =>
+scoped[Topology] notation:max "lim " x:40 " → " c:10 ", " r:70 =>
   flim (fun x => r) (𝓝[≠] c)
-notation:max "lim " x:40 " → ∞, " r:70 =>
+scoped[Topology] notation:max "lim " x:40 " → ∞, " r:70 =>
   flim (fun x => r) atTop
-notation:max "lim " x:40 " → " c:10 ", " r:70 " = ∞" =>
+scoped[Topology] notation:max "lim " x:40 " → " c:10 ", " r:70 " = ∞" =>
   Tendsto (fun x => r) (𝓝[≠] c) atTop
-notation:max "lim " x:40 " → " c:10 "⁺, " r:70 =>
+scoped[Topology] notation:max "lim " x:40 " → " c:10 "⁺, " r:70 =>
   flim (fun x => r)  (𝓝[>] c)
-notation:max "lim " x:40 " → " c:10 "⁻, " r:70 =>
+scoped[Topology] notation:max "lim " x:40 " → " c:10 "⁻, " r:70 =>
   flim (fun x => r) (𝓝[<] c)
-notation:max "lim " x:40 " → " c:10 "⁺, " r:70 " = ∞" =>
+scoped[Topology] notation:max "lim " x:40 " → " c:10 "⁺, " r:70 " = ∞" =>
   Tendsto (fun x => r) (𝓝[>] c) atTop
-notation:max "lim " x:40 " → " c:10 "⁻, " r:70 " = ∞" =>
+scoped[Topology] notation:max "lim " x:40 " → " c:10 "⁻, " r:70 " = ∞" =>
   Tendsto (fun x => r) (𝓝[<] c) atTop
 
 
@@ -190,7 +190,6 @@ lemma epsilon_delta_atTop_atTop : Tendsto f atTop atTop ↔
 
 lemma lim_def_inf_inf (h : ∀ N : ℝ, ∃ M, ∀ x, x > M → f x > N) :
   lim x → ∞, f x = ∞ := epsilon_delta_atTop_atTop.mpr h
-
 
 @[app_unexpander flim]
 def flim.unexpander : Lean.PrettyPrinter.Unexpander

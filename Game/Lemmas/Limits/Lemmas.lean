@@ -1,7 +1,7 @@
 import Game.Lemmas.Limits.Basic
 import Game.Lemmas.Inequalities
 
-open Real
+open Real Topology
 
 section L02_Consequence
 

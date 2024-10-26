@@ -1,7 +1,7 @@
 msgid ""
 msgstr "Project-Id-Version: Game v4.7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Oct 26 22:26:25 2024\n"
+"POT-Creation-Date: Sat Oct 26 22:58:59 2024\n"
 "Last-Translator: \n"
 "Language-Team: none\n"
 "Language: en\n"
@@ -399,11 +399,11 @@ msgid "Apply the inequality here."
 msgstr ""
 
 #: Game.Levels.Limit.L02_Sin
-msgid "$|sin(x)| \\leq |x|$"
+msgid "$|\\sin(x)| \\leq |x|$"
 msgstr ""
 
 #: Game.Levels.Limit.L02_Sin
-msgid "$a \\leq b$ and $b< c$ imples $a < c$ -"
+msgid "$a \\leq b$ and $b< c$ imples $a < c$"
 msgstr ""
 
 #: Game.Levels.Limit.L03_Add

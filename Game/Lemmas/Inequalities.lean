@@ -28,6 +28,6 @@ variable (x) in
 lemma abs_sin_le_abs : |sin x| ≤ |x| := sq_le_sq.1 sin_sq_le_sq
 
 /- If a ≤ b and b < c, then a < c -/
-lemma lt_of_le_of_lt {a c: ℝ} (b:ℝ) : a ≤ b → b < c → a < c:= _root_.lt_of_le_of_lt
+lemma lt_of_le_of_lt {a c: ℝ} (b:ℝ) (hab: a ≤ b) (hbc :b < c) : a < c:= _root_.lt_of_le_of_lt hab hbc
 
 end CGame

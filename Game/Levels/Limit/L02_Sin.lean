@@ -9,7 +9,7 @@ World "Limit"
 Level 2
 
 
-open BigOperators Topology Real
+open BigOperators Real Topology
 
 /-
 Some testing on delib
@@ -48,10 +48,10 @@ Statement : lim x → 0, sin x = 0 := by
 end CGame
 
 NewTactic assumption refine
-/-- $|sin(x)| \leq |x|$ -/
+/-- $|\sin(x)| \leq |x|$ -/
 TheoremDoc CGame.abs_sin_le_abs as "abs_sin_le_abs" in "Inequalities"
 
-/-- $a \leq b$ and $b< c$ imples $a < c$ --/
+/-- $a \leq b$ and $b< c$ imples $a < c$ -/
 TheoremDoc CGame.lt_of_le_of_lt as "lt_of_le_of_lt" in "Inequalities"
 
 
