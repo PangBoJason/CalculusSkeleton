@@ -197,10 +197,13 @@ def flim.unexpander : Lean.PrettyPrinter.Unexpander
       match f with
      | `(fun $x:ident => $body)=>
         match c with
+        | `(𝓝[≠] $a) => `(lim $x → $a,  $body)
+        | `(𝓝[>] $a) => `(lim $x → $a⁺,  $body)
+        | `(𝓝[<] $a) => `(lim $x → $a⁻,  $body)
         | `(nhdsWithin $a $b ) =>
           match b with
-          | `(Set.Iio $_) => `(lim $x → $a⁻,  $body)
           | `(Set.Ioi $_) => `(lim $x → $a⁺,  $body)
+          | `(Set.Iio $_) => `(lim $x → $a⁻,  $body)
           | `($_ᶜ) => `(lim $x → $a,  $body)
           | _ => `(lim $x → $a $b,  $body)
         | `(Filter.atTop) =>  `(lim $x → ∞,  $body)
