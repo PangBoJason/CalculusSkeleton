@@ -2,9 +2,9 @@ import Mathlib.Data.Real.EReal
 import Mathlib.Topology.Instances.ENNReal
 import Mathlib.Data.ENNReal.Basic
 
-open Filter Set Classical Topology
 
 noncomputable section LimDef
+open Filter Set Classical Topology
 
 -- to fix: change to functions defined on intervals
 def HasLimAt (f : ℝ → ℝ) (c : ℝ) := ∃ (l₂ : ℝ), Tendsto f (nhdsWithin c {c}ᶜ) (nhds l₂)
@@ -20,6 +20,8 @@ def HasLimAtTop (f : ℝ → ℝ) := ∃ (l₂ : ℝ), Tendsto f atTop (nhds l�
 irreducible_def flim (f : ℝ → ℝ) (l₁ : Filter ℝ) : ℝ :=
   if h : ∃ L, Tendsto f l₁ (nhds L) then h.choose else 0
 
+#check ({(0:ℝ)}ᶜ : Set ℝ )
+
 notation:max "lim " x:40 " → ∞, " r:70 "= ∞" =>
   Tendsto (fun x => r) atTop atTop
 notation:max "lim " x:40 " → " c:10 ", " r:70 =>
@@ -29,13 +31,40 @@ notation:max "lim " x:40 " → ∞, " r:70 =>
 notation:max "lim " x:40 " → " c:10 ", " r:70 " = ∞" =>
   Tendsto (fun x => r) (𝓝[≠] c) atTop
 notation:max "lim " x:40 " → " c:10 "⁺, " r:70 =>
-  flim (fun x => r) (𝓝[>] c)
+  flim (fun x => r)  (𝓝[>] c)
 notation:max "lim " x:40 " → " c:10 "⁻, " r:70 =>
   flim (fun x => r) (𝓝[<] c)
 notation:max "lim " x:40 " → " c:10 "⁺, " r:70 " = ∞" =>
-  Tendsto (fun x => r) (𝓝[<] c) atTop
-notation:max "lim " x:40 " → " c:10 "⁻, " r:70 " = ∞" =>
   Tendsto (fun x => r) (𝓝[>] c) atTop
+notation:max "lim " x:40 " → " c:10 "⁻, " r:70 " = ∞" =>
+  Tendsto (fun x => r) (𝓝[<] c) atTop
+
+
+--end LimDef
+--#check nhdsWithin
+--open Filter Set Classical Topology
+/-
+notation:max "lim " x:40 " → ∞, " r:70 "= ∞" =>
+  Filter.Tendsto (fun x => r) Filter.atTop Filter.atTop
+notation:max "lim " x:40 " → " c:10 ", " r:70 =>
+  flim (fun x => r) (nhdsWithin c  {c}ᶜ)
+notation:max "lim " x:40 " → ∞, " r:70 =>
+  flim (fun x => r) Filter.atTop
+notation:max "lim " x:40 " → " c:10 ", " r:70 " = ∞" =>
+  Filter.Tendsto (fun x => r) (nhdsWithin c  {c}ᶜ) Filter.atTop
+notation:max "lim " x:40 " → " c:10 "⁺, " r:70 =>
+  flim (fun x => r)  (nhdsWithin c  (Set.Ioi c))
+notation:max "lim " x:40 " → " c:10 "⁻, " r:70 =>
+  flim (fun x => r) (nhdsWithin c  (Set.Iio c))
+notation:max "lim " x:40 " → " c:10 "⁺, " r:70 " = ∞" =>
+  Filter.Tendsto (fun x => r) (nhdsWithin c  (Set.Ioi c)) Filter.atTop
+notation:max "lim " x:40 " → " c:10 "⁻, " r:70 " = ∞" =>
+  Filter.Tendsto (fun x => r) (nhdsWithin c  (Set.Iio c)) Filter.atTop
+
+-/
+
+--section LimDef
+--open Filter Set Classical Topology
 
 
 variable {c L : ℝ} {f : ℝ → ℝ}
@@ -161,5 +190,25 @@ lemma epsilon_delta_atTop_atTop : Tendsto f atTop atTop ↔
 
 lemma lim_def_inf_inf (h : ∀ N : ℝ, ∃ M, ∀ x, x > M → f x > N) :
   lim x → ∞, f x = ∞ := epsilon_delta_atTop_atTop.mpr h
+
+
+@[app_unexpander flim]
+def flim.unexpander : Lean.PrettyPrinter.Unexpander
+  | `($_ $f $c) =>
+      match f with
+     | `(fun $x:ident => $body)=>
+        match c with
+        | `(nhdsWithin $a $b ) =>
+          match b with
+          | `(Set.Iio $_) => `(lim $x → $a⁻,  $body)
+          | `(Set.Ioi $_) => `(lim $x → $a⁺,  $body)
+          | `($_ᶜ) => `(lim $x → $a,  $body)
+          | _ => `(lim $x → $a $b,  $body)
+        | `(Filter.atTop) =>  `(lim $x → ∞,  $body)
+        | `($a) => `(lim $x → $a,  $body)
+     | _ => throw ()
+  | _ => throw ()
+
+#check lim_def_fin_inf
 
 end LimDef

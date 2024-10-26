@@ -7,7 +7,7 @@ World "Limit"
 Level 1
 
 open BigOperators Topology
-
+open scoped Topology
 
 Statement : lim x → 0, 2 * x = 0 := by
   apply lim_def_fin_fin

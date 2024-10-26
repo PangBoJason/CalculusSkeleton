@@ -2,12 +2,25 @@ import Game.Metadata
 -- import Mathlib
 import Game.Lemmas.Limits.Basic
 import Game.Lemmas.Inequalities
+--import Game.Lemmas.Limits.delib
 
 World "Limit"
 
 Level 2
 
-open Real Topology
+
+open BigOperators Topology Real
+
+/-
+Some testing on delib
+-/
+#check lim_def_fin_fin
+#check left_lim_def_fin_fin
+#check right_lim_def_fin_fin
+#check lim_def_inf_fin
+#check lim x → 0, x
+#check lim x → ∞, x
+#check lim x → ∞, x = ∞
 
 namespace CGame
 
