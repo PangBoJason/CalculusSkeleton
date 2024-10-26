@@ -1,7 +1,7 @@
 msgid ""
 msgstr "Project-Id-Version: Game v4.7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Fri Oct 25 17:10:54 2024\n"
+"POT-Creation-Date: Sat Oct 26 17:53:00 2024\n"
 "Last-Translator: \n"
 "Language-Team: none\n"
 "Language: en\n"
@@ -226,11 +226,12 @@ msgid "TBA"
 msgstr ""
 
 #: Game.Levels.Derivative.L11_DanielLow
-msgid "Derivative of \\(\\frac{(x-1)^4}{(x^2+2x)^5}\\)"
+msgid "Derivative of (x-1)^4/(x^2+2x)^5"
 msgstr ""
 
 #: Game.Levels.Derivative.L11_DanielLow
-msgid "$\\frac{(x-1)^4}{(x^2+2x)^5}$We want to use function composition so first we define several functions, one each for (u^4), (x-1), (u^5), (x^2+2x)"
+msgid "##Introduction\n"
+"$\\frac{(x-1)^4}{(x^2+2x)^5}$We want to use function composition so first we define several functions, one each for (u^4), (x-1), (u^5), (x^2+2x)"
 msgstr ""
 
 #: Game.Levels.Derivative.L11_DanielLow
@@ -366,7 +367,15 @@ msgid "$ |2| = 2 $"
 msgstr ""
 
 #: Game.Levels.Limit.L02_Sin
-msgid "Apply definition now"
+msgid "Apply definition `lim_def_fin_fin` to rewrite the problem into the ε δ language"
+msgstr ""
+
+#: Game.Levels.Limit.L02_Sin
+msgid "Now `intro` the $\\epsilon$ and its assumption."
+msgstr ""
+
+#: Game.Levels.Limit.L02_Sin
+msgid "You always can use `simp` to simplify the goal."
 msgstr ""
 
 #: Game.Levels.Limit.L02_Sin
@@ -374,7 +383,15 @@ msgid "How can you choose the bound here?"
 msgstr ""
 
 #: Game.Levels.Limit.L02_Sin
+msgid "We would like to use the inequality $|\\sin x| ≤ |x|$."
+msgstr ""
+
+#: Game.Levels.Limit.L02_Sin
 msgid "Use `constructor` to split the goal!"
+msgstr ""
+
+#: Game.Levels.Limit.L02_Sin
+msgid "Close the goal using assumption."
 msgstr ""
 
 #: Game.Levels.Limit.L02_Sin
@@ -383,6 +400,10 @@ msgstr ""
 
 #: Game.Levels.Limit.L02_Sin
 msgid "$|sin(x)| \\leq |x|$"
+msgstr ""
+
+#: Game.Levels.Limit.L02_Sin
+msgid "$a \\leq b$ and $b< c$ imples $a < c$ -"
 msgstr ""
 
 #: Game.Levels.Limit.L03_Add

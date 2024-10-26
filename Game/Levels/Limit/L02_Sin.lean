@@ -9,25 +9,37 @@ Level 2
 
 open Real Topology
 
+namespace CGame
+
 Statement : lim x → 0, sin x = 0 := by
-  Hint "Apply definition now"
+  Hint "Apply definition `lim_def_fin_fin` to rewrite the problem into the ε δ language "
   apply lim_def_fin_fin
-  simp
+  Hint "Now `intro` the $\\epsilon$ and its assumption."
   intro ε hε
+  Hint "You always can use `simp` to simplify the goal. "
+  simp
   Hint "How can you choose the bound here?"
+  Hint "We would like to use the inequality $|\\sin x| ≤ |x|$."
   use ε
   Hint "Use `constructor` to split the goal!"
   constructor
-  · assumption
+  · Hint "Close the goal using assumption."
+    assumption
   · intro x _ hx
     Hint "Apply the inequality here."
-    calc
-      _ ≤ |x| := abs_sin_le_abs x
-      _ < ε := hx
+    apply lt_of_le_of_lt (|x|)
+    use abs_sin_le_abs x
+    use hx
 
-NewTactic assumption Calc
 
+end CGame
+
+NewTactic assumption refine
 /-- $|sin(x)| \leq |x|$ -/
-TheoremDoc Real.abs_sin_le_abs as "abs_sin_le_abs" in "Inequalities"
+TheoremDoc CGame.abs_sin_le_abs as "abs_sin_le_abs" in "Inequalities"
 
-NewTheorem Real.abs_sin_le_abs
+/-- $a \leq b$ and $b< c$ imples $a < c$ --/
+TheoremDoc CGame.lt_of_le_of_lt as "lt_of_le_of_lt" in "Inequalities"
+
+
+NewTheorem CGame.abs_sin_le_abs CGame.lt_of_le_of_lt
