@@ -17,10 +17,19 @@ def HasLimAtTop (f : ℝ → ℝ) := ∃ (l₂ : ℝ), Tendsto f atTop (nhds l�
 
 -- add HasLimAtBot
 
-irreducible_def flim (f : ℝ → ℝ) (l₁ : Filter ℝ) : ℝ :=
+irreducible_def flim (f : α → ℝ) (l₁ : Filter α) : ℝ :=
   if h : ∃ L, Tendsto f l₁ (nhds L) then h.choose else 0
 
 #check ({(0:ℝ)}ᶜ : Set ℝ )
+
+/- Note that for sequence, there is only one meaningful filter which is atTop.
+  So for sequance lim, we do not specify the direction!
+  -/
+scoped[Topology] notation:max "lim " x:40 ", " r:70 =>
+  flim (fun (x:ℕ) => r) atTop
+scoped[Topology] notation:max "lim " x:40 ", " r:70 " = ∞" =>
+  Tendsto (fun (x:ℕ) => r) atTop atTop
+
 
 scoped[Topology] notation:max "lim " x:40 " → ∞, " r:70 "= ∞" =>
   Tendsto (fun x => r) atTop atTop
@@ -207,7 +216,7 @@ def flim.unexpander : Lean.PrettyPrinter.Unexpander
           | `(Set.Iio $a) => `(lim $x → $a⁻,  $body)
           | `($_ᶜ) => `(lim $x → $a,  $body)
           | _ => `(lim $x → $a $b,  $body)
-        | `(Filter.atTop) =>  `(lim $x → ∞,  $body)
+        | `(atTop) =>  `(lim $x → ∞,  $body)
         | `($a) => `(lim $x → $a,  $body)
      | `($f) =>
         let x:= Lean.mkIdent `x
@@ -227,6 +236,19 @@ def flim.unexpander : Lean.PrettyPrinter.Unexpander
 #check right_lim_def_fin_inf
 #check flim (id) (𝓝[≠] 1)
 
+open Nat
+example  : lim n, (1:ℝ)/(n+1:ℝ) = 0 := by
+  rw [flim]
+  have NHB := nhds_basis_abs_sub_lt (α := ℝ)
+  have : Tendsto (fun n => 1 / (n + 1:ℝ)) atTop (𝓝 0) := by
+    apply (HasBasis.tendsto_iff (atTop_basis) (NHB 0)).2
+    intro ε he
+    use 1/ε + 1
+    simp
+    intro x
+    sorry
+  simp
+  sorry
 
 
 end LimDef
