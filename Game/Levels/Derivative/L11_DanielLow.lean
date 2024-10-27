@@ -64,3 +64,5 @@ TheoremDoc DifferentiableAt.mul as "DifferentiableAt.mul" in "Differentiable"
 
 /-- Product Rule: $(c * g)'(x) =  c * g'(x))$ -/
 TheoremDoc DifferentiableAt.const_mul as "DifferentiableAt.const_mul" in "Differentiable"
+
+NewTactic differentiability
