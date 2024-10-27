@@ -191,9 +191,10 @@ lemma epsilon_delta_atTop_atTop : Tendsto f atTop atTop ↔
 lemma lim_def_inf_inf (h : ∀ N : ℝ, ∃ M, ∀ x, x > M → f x > N) :
   lim x → ∞, f x = ∞ := epsilon_delta_atTop_atTop.mpr h
 
+
 @[app_unexpander flim]
 def flim.unexpander : Lean.PrettyPrinter.Unexpander
-  | `($_ $f $c) =>
+  | `($n $f $c) =>
       match f with
      | `(fun $x:ident => $body)=>
         match c with
@@ -202,15 +203,30 @@ def flim.unexpander : Lean.PrettyPrinter.Unexpander
         | `(𝓝[<] $a) => `(lim $x → $a⁻,  $body)
         | `(nhdsWithin $a $b ) =>
           match b with
-          | `(Set.Ioi $_) => `(lim $x → $a⁺,  $body)
-          | `(Set.Iio $_) => `(lim $x → $a⁻,  $body)
+          | `(Set.Ioi $a) => `(lim $x → $a⁺,  $body)
+          | `(Set.Iio $a) => `(lim $x → $a⁻,  $body)
           | `($_ᶜ) => `(lim $x → $a,  $body)
           | _ => `(lim $x → $a $b,  $body)
         | `(Filter.atTop) =>  `(lim $x → ∞,  $body)
         | `($a) => `(lim $x → $a,  $body)
-     | _ => throw ()
-  | _ => throw ()
+     | `($f) =>
+        let x:= Lean.mkIdent `x
+        match c with
+        | `(𝓝[≠] $a) => `(lim $x → $a,  ($f $x))
+        | `(𝓝[>] $a) => `(lim $x → $a⁺, ($f $x))
+        | `(𝓝[<] $a) => `(lim $x → $a⁻, ($f $x))
+        | `(nhdsWithin $a $b ) =>
+          match b with
+          | `(Set.Ioi $a) => `(lim $x → $a⁺, ($f $x))
+          | `(Set.Iio $a) => `(lim $x → $a⁻, ($f $x))
+          | `($_ᶜ) => `(lim $x → $a,  ($f $x))
+          | _ => `(lim $x → $a $b,   ($f $x))
+        | _ => `(lim $x → $c,   ($f $x))
+  | `($a) => `($a)
 
-#check lim_def_fin_inf
+#check right_lim_def_fin_inf
+#check flim (id) (𝓝[≠] 1)
+
+
 
 end LimDef
