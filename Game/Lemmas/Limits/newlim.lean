@@ -2,7 +2,160 @@ import Mathlib.Data.Real.EReal
 import Mathlib.Topology.Instances.ENNReal
 import Mathlib.Data.ENNReal.Basic
 
+import Lean
 
+open Real Topology Filter
+
+
+noncomputable section LimDef
+open Lean Elab Term Meta Syntax
+
+-- Define the syntax category for extended neighborhoods
+declare_syntax_cat enhb
+
+-- Define the syntax for extended neighborhoods
+syntax term : enhb
+syntax term "⁺" : enhb
+syntax term "⁻" : enhb
+syntax "∞" : enhb
+syntax "-∞" : enhb
+
+-- Define the syntax for the limit notation
+syntax:100 (name:=llimbuilder) "lim " ident " → " enhb:101 ", " term:100  (" = " enhb)? : term
+
+open Classical in
+irreducible_def flim [TopologicalSpace R] [Inhabited R] (f : α → R) (l₁ : Filter α) : R :=
+  if h : ∃ L, Tendsto f l₁ (nhds L) then h.choose else default
+
+def elabenhd : TSyntax `enhb → TermElabM (TSyntax `term) := fun C =>
+        match C with
+        | `(enhb|$c:term ⁺)  => `(nhdsWithin $c (Set.Ioi $c))
+        | `(enhb|$c:term ⁻)  => `(nhdsWithin $c (Set.Iio $c))
+        | `(enhb|$c:term)  => `(nhdsWithin $c {($c)}ᶜ)
+        | `(enhb|∞) => `(atTop)
+        | `(enhb|-∞) => `(atBot)
+        | _ => none
+
+def elabenhd_rhs : TSyntax `enhb → TermElabM (TSyntax `term) := fun C =>
+        match C with
+        | `(enhb|$c:term)  => `(nhds $c)
+        | `(enhb|∞) => `(atTop)
+        | `(enhb|-∞) => `(atBot)
+        | _ => none
+
+
+
+
+
+@[term_elab llimbuilder]
+def elabLimBuilder : TermElab := fun stx et? => do
+  let res : TSyntax `term ← do match stx with
+    | `(lim $x:ident → $C:enhb, $f:term = $y:enhb) => do
+      let nb : TSyntax `term ← do elabenhd C
+      let ff : TSyntax `term ← do `(fun $x => $f)
+      let y : TSyntax `term ← do elabenhd_rhs  y
+      `(Tendsto ($ff) ($nb) ($y))
+    | `(lim $x:ident → $C:enhb, $f:term) => do
+      let nb : TSyntax `term ← do elabenhd C
+      let ff : TSyntax `term ← do `(fun $x => $f)
+      `(flim ($ff) ($nb))
+    | _ => none
+  elabTerm (res) et?
+
+open Lean Lean.PrettyPrinter.Delaborator
+--#check flim
+
+def delabenhd : TSyntax `term → DelabM (TSyntax `enhb) := fun C =>
+      match C with
+        | `(𝓝[≠] $a) => `(enhb|($a))
+        | `(𝓝[>] $a) => `(enhb|($a) ⁺)
+        | `(𝓝[<] $a) => `(enhb|($a) ⁻)
+        | `(nhdWithin $a (Set.Ioi $b)) => `(enhb|($a) ⁺)
+        | `(nhdWithin $a (Set.Iio $b)) => `(enhb|($a) ⁻)
+        | `(nhdWithin $a {$a}ᶜ) => `(enhb|a.raw)
+        | `(atTop) => `(enhb|∞)
+        | `(atBot) => `(enhb|-∞)
+        | a => `(enhb|($a))
+
+def delabenhdrhs : TSyntax `term → DelabM (TSyntax `enhb) := fun C =>
+      match C with
+        | `(atTop) => `(enhb|∞)
+        | `(atBot) => `(enhb|-∞)
+        | `(𝓝 $a) => `(enhb|($a))
+        | `(nhds $a) => `(enhb|($a))
+        | a => `(enhb|a)
+
+
+@[delab app.flim]
+def delabflim : Delab := whenPPOption Lean.getPPNotation <| withOverApp 6 do
+  let #[_,_,_,_,ff,nb] := (← SubExpr.getExpr).getAppArgs | failure
+  let ff ←  Lean.PrettyPrinter.delab ff
+  let nb ←  Lean.PrettyPrinter.delab nb
+  let nb ← delabenhd nb
+  match ff with
+  | `(fun $x:ident => $body) => `(lim $(x) → $nb, $body)
+  | _ => none
+
+#check Tendsto
+
+#check flim
+
+
+@[delab app.Filter.Tendsto]
+def delabTendsto : Delab := whenPPOption Lean.getPPNotation  <| withOverApp 5 do
+  let #[_,_,ff,nb,L] := (← SubExpr.getExpr).getAppArgs | failure
+  let ff := (← Lean.PrettyPrinter.delab (ff))
+  let nb  ←  delabenhd <| (← Lean.PrettyPrinter.delab (nb))
+  let L ←  delabenhdrhs (← Lean.PrettyPrinter.delab (L))
+  match ff with
+  | `(fun $x:ident => $body) => `(lim $(x) → $nb, $body = $L )
+  | _ => none
+
+/-
+def delabTendsto : Delab := whenPPOption Lean.getPPNotation  do
+  let x := (← SubExpr.getExpr).getAppArgs --| failure
+  `((← Lean.PrettyPringer.delab x))
+-/
+
+/-
+@[delab app.Tendsto]
+def delabTendsto : Delab := whenPPOption Lean.getPPNotation <| withOverApp 5 do
+  logInfo m!"(← SubExpr.getExpr).getAppNumArgs"
+  let #[_,_,ff,nb,L] := (← SubExpr.getExpr).getAppArgs --| failure
+  let ff ←  Lean.PrettyPrinter.delab ff
+  let nb ←  delabenhd <| (← Lean.PrettyPrinter.delab nb)
+  let L ←  delabenhdrhs <| (← Lean.PrettyPrinter.delab L)
+  match ff with
+  | `(fun $x:ident => $body) => `(lim $(x) → $nb, $body = L)
+  | _ => none
+-/
+
+open Classical
+
+end LimDef
+
+variable (c : ℝ)
+variable (f : ℝ → ℝ)
+variable (g : ℕ → ℝ)
+variable (h : ℕ → ℕ)
+
+#check (lim x→∞, f x)
+#check (lim x→-∞, f x)
+#check (lim x → ∞, f x) + (lim x → 0⁺,  x) = 0
+#check lim x → 0, f x + lim x → ∞, h x + (lim x → ∞, g x) = 0
+
+#check lim x → ∞, f x = ∞
+#check lim x → 100⁺, f x = 100
+#check lim x → c⁻, f x = -0
+#check lim x → ∞, g x = -∞
+--#check llim c⁻ = c
+--#check llim ∞ = c
+--#check llim -∞ = c
+
+
+
+
+/-
 noncomputable section LimDef
 open Filter Set Classical Topology
 
@@ -253,3 +406,4 @@ example  : lim n, (1:ℝ)/(n+1:ℝ) = 0 := by
 
 
 end LimDef
+-/
