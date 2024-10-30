@@ -15,10 +15,13 @@ declare_syntax_cat enhb
 
 -- Define the syntax for extended neighborhoods
 syntax term : enhb
-syntax term "⁺" : enhb
-syntax term "⁻" : enhb
+syntax enhb "⁺" : enhb
+syntax enhb "⁻" : enhb
 syntax "∞" : enhb
 syntax "-∞" : enhb
+
+instance : Coe Term (TSyntax `enhb) where
+  coe s := ⟨s.raw⟩
 
 -- Define the syntax for the limit notation
 syntax:100 (name:=llimbuilder) "lim " ident " → " enhb:101 ", " term:100  (" = " enhb)? : term
@@ -43,10 +46,6 @@ def elabenhd_rhs : TSyntax `enhb → TermElabM (TSyntax `term) := fun C =>
         | `(enhb|-∞) => `(atBot)
         | _ => none
 
-
-
-
-
 @[term_elab llimbuilder]
 def elabLimBuilder : TermElab := fun stx et? => do
   let res : TSyntax `term ← do match stx with
@@ -67,11 +66,11 @@ open Lean Lean.PrettyPrinter.Delaborator
 
 def delabenhd : TSyntax `term → DelabM (TSyntax `enhb) := fun C =>
       match C with
-        | `(𝓝[≠] $a) => `(enhb|($a))
-        | `(𝓝[>] $a) => `(enhb|($a) ⁺)
-        | `(𝓝[<] $a) => `(enhb|($a) ⁻)
-        | `(nhdWithin $a (Set.Ioi $b)) => `(enhb|($a) ⁺)
-        | `(nhdWithin $a (Set.Iio $b)) => `(enhb|($a) ⁻)
+        | `(𝓝[≠] $a) => `(enhb|$a)
+        | `(𝓝[>] $a) => `(enhb|$a ⁺)
+        | `(𝓝[<] $a) => `(enhb|$a ⁻)
+        | `(nhdWithin $a (Set.Ioi $b)) => `(enhb|$a ⁺)
+        | `(nhdWithin $a (Set.Iio $b)) => `(enhb|$a ⁻)
         | `(nhdWithin $a {$a}ᶜ) => `(enhb|a.raw)
         | `(atTop) => `(enhb|∞)
         | `(atBot) => `(enhb|-∞)
@@ -81,8 +80,8 @@ def delabenhdrhs : TSyntax `term → DelabM (TSyntax `enhb) := fun C =>
       match C with
         | `(atTop) => `(enhb|∞)
         | `(atBot) => `(enhb|-∞)
-        | `(𝓝 $a) => `(enhb|($a))
-        | `(nhds $a) => `(enhb|($a))
+        | `(𝓝 $a) => `(enhb|$a)
+        | `(nhds $a) => `(enhb|$a)
         | a => `(enhb|a)
 
 
