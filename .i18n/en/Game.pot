@@ -1,7 +1,7 @@
 msgid ""
 msgstr "Project-Id-Version: Game v4.7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Mon Nov  4 22:27:35 2024\n"
+"POT-Creation-Date: Fri Oct 25 17:10:54 2024\n"
 "Last-Translator: \n"
 "Language-Team: none\n"
 "Language: en\n"
@@ -287,9 +287,12 @@ msgstr ""
 
 #: Game.Levels.Derivative.L11_DanielLow
 msgid "Derivative of (x-1)^4/(x^2+2x)^5"
+msgid "Derivative of (x-1)^4/(x^2+2x)^5"
 msgstr ""
 
 #: Game.Levels.Derivative.L11_DanielLow
+msgid "##Introduction\n"
+"$\\frac{(x-1)^4}{(x^2+2x)^5}$We want to use function composition so first we define several functions, one each for (u^4), (x-1), (u^5), (x^2+2x)"
 msgid "##Introduction\n"
 "$\\frac{(x-1)^4}{(x^2+2x)^5}$We want to use function composition so first we define several functions, one each for (u^4), (x-1), (u^5), (x^2+2x)"
 msgstr ""
@@ -487,13 +490,16 @@ msgid "Calculus Game"
 msgstr ""
 
 #: Game
-msgid "This text appears on the starting page where one selects the world/level to play.\n"
+msgid "This text appears on the starting page where one selects the world/level to play.
+\n"
 "You can use markdown."
 msgstr ""
 
 #: Game
-msgid "## Calculus Game\n"
-"\n"
+msgid "## Calculus Game
+\n"
+"
+\n"
 "This game is intended for a fun introduction to Lean4 and Calculus World."
 msgstr ""
 
